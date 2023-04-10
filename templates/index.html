@@ -1,24 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROMBot-AI</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ROMBot-AI</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>ROMBot-AI</h1>
-    <form method="POST">
-		{%if botinput%}
-		<input type="text" id="botinput" name="botinput" value="{{botinput}}">
-		{%else%}
-		<input type="text" id="botinput" name="botinput" placeholder="Ask a question...">
-		{%endif%}
-		<button type="submit">Send</button>
-	</form>
+	<h1>ROMBot-AI</h1>
+	<div class="chat-container">
+		<div class="chat-history"></div>
+			<form method="POST">
+			{% if botinput %}
+				<div class="input-group">
+					<input type="text" id="botinput1" name="botinput" value="{{ botinput }}">
+				{% else %}
+					<input type="text" id="botinput2" name="botinput" placeholder="Ask a question...">
+				{% endif %}
+					<button type="submit">Send</button>
+				</div>
+			</form>
+		</div>
+	</div>
 	<br>
-	{%if reply%}
-	<li>Answer - {{reply}}</li>
-	{%endif%}
+	{% if replies %}
+	<ul>
+	  {% for reply in replies %}
+		<li>{{ reply }}</li>
+	  {% endfor %}
+	</ul>
+	{% endif %}
+	<script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

@@ -1,3 +1,0 @@
-Connection string environment variable: MYSQLCONNSTR_localdb
-Connection string environment variable: D:\home\data\mysql
-MySQL log location: D:\home\logfiles\mysql
