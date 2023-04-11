@@ -10,26 +10,28 @@
 	<h1>ROMBot-AI</h1>
 	<div class="chat-container">
 		<div class="chat-history"></div>
-			<form method="POST">
+		<form method="POST">
+			{{ form.csrf_token }}
 			{% if botinput %}
 				<div class="input-group">
 					<input type="text" id="botinput1" name="botinput" value="{{ botinput }}">
 				{% else %}
-					<input type="text" id="botinput2" name="botinput" placeholder="Ask a question...">
+					<input type="text" id="chatMessages" name="chatMessages" placeholder="Ask a question...">
 				{% endif %}
 					<button type="submit">Send</button>
 				</div>
 			</form>
 		</div>
-	</div>
 	<br>
+
 	{% if replies %}
 	<ul>
-	  {% for reply in replies %}
-		<li>{{ reply }}</li>
-	  {% endfor %}
+		{% for reply in replies %}
+			<li>{{ reply }}</li>
+		{% endfor %}
 	</ul>
 	{% endif %}
 	<script src="{{ url_for('static', filename='script.js') }}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.3/purify.min.js" integrity="sha384-8Bfx1dMOR9c035Ht+z+Rz/UW5+K2DfInKudI5QgkSb5PIonjJ9Xxhxx0VE4GpVca" crossorigin="anonymous"></script>
 </body>
 </html>

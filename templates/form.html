@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>ROMBot-AI Chat</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js"></script>
+  </head>
+  <body>
+    {% for message in get_flashed_messages() %}
+      <div>{{ message }}</div>
+    {% endfor %}
+
+    <form method="POST" action="{{ url_for('form') }}">
+      {{ form.csrf_token }}
+      <div>
+        <label for="{{ form.name.id }}">Name</label>
+        {{ form.name(size=20) }}
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>

@@ -1,13 +1,18 @@
 import openai
 import pandas as pd
 import spacy
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash, redirect, url_for
+from flask_wtf import FlaskForm, CSRFProtect
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
 import spacy.cli
 from subprocess import run
 from conversation_history import conversation_history
 import os
+import streamlit as st
 
-api_key = os.environ['API_KEY']
+# api_key = os.environ['API_KEY']
+api_key = "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"
 
 spacy.cli.download("en_core_web_sm")
 
@@ -69,21 +74,18 @@ def get_answer_from_embeddings(input):
         return response
 
 app = Flask(__name__)
+csrf = CSRFProtect(app)
+class MyForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    submit = SubmitField('Submit')
 
-@app.route("/", methods=["GET", "POST"])
-def index():
-    botinput = None
-    reply = None
+@app.route('/form', methods=['GET', 'POST'])
+def form():
+    form = MyForm()
+    if form.validate_on_submit():
+        flash(f"Hello, {form.name.data}!")
+        return redirect(url_for('form'))
+    return render_template('index.html', form=form)
 
-    if request.method == "POST":
-        botinput = request.form.get("botinput")
-        print(botinput)
-        reply = get_answer_from_embeddings(botinput)
-
-    return render_template(
-        "index.html",
-        reply=reply,
-        botinput=botinput)
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True, port=5005, threaded=False)
