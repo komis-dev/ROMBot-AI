@@ -5,6 +5,9 @@ from flask import Flask, render_template, request
 import spacy.cli
 from subprocess import run
 from conversation_history import conversation_history
+import os
+
+api_key = os.environ['API_KEY']
 
 spacy.cli.download("en_core_web_sm")
 
@@ -18,7 +21,7 @@ nlp = spacy.load('en_core_web_sm')
 df = pd.read_csv("embeddings.csv")
 
 # Set the OpenAI API key
-openai.api_key = "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"
+openai.api_key = api_key
 
 # Define the function to generate embeddings for given text
 def generate_embedding(text):
@@ -49,12 +52,11 @@ def get_answer_from_embeddings(input):
 
         return closest_row['sentence']
     else:
-        conversation_history_dict = dict(conversation_history)
-        conversation_history_dict.update({"role": "user", "content": input})
+        conversation_history.append({"role": "user", "content": input})
 
         completion = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
-            messages=conversation_history_dict,
+            messages=conversation_history,
             temperature=0.85,
             max_tokens=1000,
             n=1,
@@ -63,7 +65,7 @@ def get_answer_from_embeddings(input):
             frequency_penalty=0.6,
         )
         response = completion["choices"][0]['message']['content']
-        conversation_history_dict.update({"role": "assistant", "content": response})
+        conversation_history.append({"role": "assistant", "content": response})
         return response
 
 app = Flask(__name__)
@@ -84,4 +86,4 @@ def index():
         botinput=botinput)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5005)
