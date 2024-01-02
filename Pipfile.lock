@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "b745e4bfcda7557b31ed597e2fe8a5f6612b60a5e9ede1e78a9d85d5fbf69684"
+            "sha256": "4872c707409548a5a782324141bcb1302f8ca441b762d3e8de328c833a5db141"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -840,6 +840,7 @@
                 "sha256:f8ffb705ffcf5ddd0e80b65ddf7bed7ee4f5a441ea7d3419e861a12eaf41af58"
             ],
             "index": "pypi",
+            "markers": "python_version >= '3.7'",
             "version": "==2.1.2"
         },
         "matplotlib": {
@@ -1969,11 +1970,12 @@
         },
         "werkzeug": {
             "hashes": [
-                "sha256:935539fa1413afbb9195b24880778422ed620c0fc09670945185cce4d91a8890",
-                "sha256:98c774df2f91b05550078891dee5f0eb0cb797a522c757a2452b9cee5b202330"
+                "sha256:554b257c74bbeb7a0d254160a4f8ffe185243f52a52035060b761ca62d977f03",
+                "sha256:bba1f19f8ec89d4d607a3bd62f1904bd2e609472d93cd85e9d4e178f472c3748"
             ],
+            "index": "pypi",
             "markers": "python_version >= '3.8'",
-            "version": "==2.3.6"
+            "version": "==2.3.8"
         },
         "wtforms": {
             "hashes": [
